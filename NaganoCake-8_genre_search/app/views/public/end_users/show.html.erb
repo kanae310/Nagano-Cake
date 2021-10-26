@@ -1,0 +1,40 @@
+<%= render 'layouts/heduser' %>
+
+<p>登録情報　<%= link_to "編集する", edit_public_end_users_path, class: "btn btn-success w-120px mt-2"  %></p>
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>氏名</td>
+      <td><%= @user.last_name %> <%=@user.first_name %></td>
+    </tr>
+    <tr>
+      <td>カナ</td>
+      <td><%= @user.last_kana_name %> <%= @user.first_kana_name %></td>
+    </tr>
+    <tr>
+      <td>郵便番号</td>
+      <td><%= @user.postal_code %></td>
+    </tr>
+    <tr>
+      <td>住所</td>
+      <td><%= @user.address %></td>
+    </tr>
+    <tr>
+      <td>電話番号</td>
+      <td><%= @user.telephone_number %> </td>
+    </tr>
+    <tr>
+      <td>メールアドレス</td>
+      <td><%= @user.email %></td>
+    </tr>
+    </tbody>
+</table>
+
+<p>配送先 <%= link_to "一覧を見る", public_addreses_path, class: "btn btn-primary w-120px mt-2"  %></p>
+<p>注文履歴 <%= link_to "一覧を見る", '#', class: "btn btn-primary w-120px mt-2"  %></p>

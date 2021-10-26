@@ -1,0 +1,24 @@
+<%= render 'layouts/hedadmin' %>
+<h2>ジャンル一覧・追加</h2>
+<%= form_with model:@genre,url: admin_genres_path, local: true do |f| %>
+<div class="field"> <p>ジャンル名</p><%= f.text_field :name %></div> <%= f.submit '新規登録' %>
+<%end%>
+
+ <table class="table">
+    <thead>
+      <tr>
+      <th>ジャンル</th>
+      <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @genres.each do |genre| %>
+        <tr>
+          <td><%= genre.name %></td>
+          <td>
+          　<%= link_to "編集する", edit_admin_genre_path(genre.id), class: "btn btn-success w-120px mt-2"  %>
+          </td>
+        </tr>
+      <% end%>
+    </tbody>
+  </table>

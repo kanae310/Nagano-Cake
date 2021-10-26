@@ -1,0 +1,27 @@
+<%= render 'layouts/hedadmin' %>
+<div class="item_new">
+<h2>商品新規登録</h2>
+<%= form_with model:@item,url: admin_items_path, local: true do |f| %>
+<div class="field">
+   <p>商品画像</p><%= f.attachment_field :item_image %>
+</div>
+<div class="field">
+   <p>商品名</p><%= f.text_field :name, placeholder:'商品名'  %>
+</div>
+<div class="field">
+   <p>商品説明</p><%= f.text_area :introduction,placeholder:'ここに説明文を記述します'  %>
+</div>
+<div class="field">
+   <p>ジャンル</p><%= f.collection_select :genre_id, Genre.all, :id, :name, include_blank: "---選択して下さい---" %>
+</div>
+<div class="field">
+   <p>商品価格</p><%= f.text_field :price,placeholder:'1000'%>円
+</div>
+<div class="field">
+   <p>販売ステータス</p> 
+   <%= f.radio_button :sale_status, true %><%= f.label :sale_status, '販売中', value: true %>
+   <%= f.radio_button :sale_status, false %><%= f.label :sale_status, '販売停止中', value: false %>
+</div>
+<%= f.submit '新規登録'%>
+<%end%>
+</div>

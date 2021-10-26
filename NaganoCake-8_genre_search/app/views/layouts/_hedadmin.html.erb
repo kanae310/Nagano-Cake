@@ -1,0 +1,56 @@
+ <header>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+          <% if admin_signed_in? %>
+          <a class="navbar-brand p-3" href="/admin">NaganoCake</a>
+          <% else %>
+          <a class="navbar-brand p-3" href="#">NaganoCake</a>
+          <% end %>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+           <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+          <% if admin_signed_in? %>
+          <li class="nav-item">
+          <%= link_to "商品一覧" ,admin_items_path, class: 'nav-list text-dark p-3' %>
+          </li>
+          <li class="nav-item">
+          <%= link_to "会員一覧" ,admin_end_users_path, class: 'nav-list text-dark p-3' %>
+          </li>
+          <li class="nav-item">
+           <%= link_to "注文履歴一覧" ,admin_orders_path, class: 'nav-list text-dark p-3' %>
+           </li>
+           <li class="nav-item">
+           <%= link_to "ジャンル一覧" ,admin_genres_path, class: 'nav-list text-dark p-3' %>
+           </li>
+           <li class="nav-item">
+          <%= link_to destroy_admin_session_path, method: :delete, class: 'nav-list text-dark p-3' do%>ログアウト<%end%>
+          </li>
+          <br/>
+          <%= form_with url: admin_search_path, method: :get, local: true do |f| %>
+          <%= f.text_field :name , placeholder:'Search'%>
+          <%= button_tag(type: "submit") do %>
+               <i class="fa fa-search"></i>
+           <% end %>
+          <% end %>
+            <% else %>
+          <li class="nav-item">
+         <a class= 'nav-list text-dark p-3' href="about" >About</a>
+          </li>
+          <li class="nav-item">
+             <%= link_to "商品一覧" ,admin_items_path, class: 'nav-list text-dark p-3' %>
+          </li>
+          <li class="nav-item">
+          <%= link_to  new_end_user_registration_path, class: 'nav-list text-dark p-3' do %>新規登録<%end%>
+           </li>
+
+          <li class="nav-item">
+          <%= link_to  new_admin_session_path, class: 'nav-list text-dark p-3' do%>ログイン<%end%>
+          </li>
+         <% end %>
+        </ul>
+      </div>
+     </div>
+    </nav>
+    </header>

@@ -1,0 +1,76 @@
+<%= render 'layouts/hedadmin' %>
+ <h3>注文履歴詳細</h3>
+ <table>
+    <tbody>
+      <tr>
+      <td>購入者</td>
+      <td><%= @order.end_user.last_name %><%= @order.end_user.first_name %></td>
+      </tr>
+      <tr>
+      <td>購入日時</td>
+      <td><%= @order.created_at.to_date %></td>
+      </tr>
+      <tr>
+      <td>配送先</td>
+      <td>〒<%= @order.postal_code %><%=@order.address%><br/><%=@order.name%></td>
+      </tr>
+       <tr>
+      <td>支払方法</td>
+      <td><%= @order.pay_method_i18n %></td>
+      </tr>
+      <tr>
+      <td>注文ステータス</td>
+      <td>
+         <%= form_with model:[ @order],url: admin_order_path(@order), local: true do |f| %>
+           <%= f.select :status, options_for_select({"入金待ち": 'wait_pay', "入金確認": 'confirm_pay', "制作中": 'in_production',"発送準備中": 'prepare_ship',"発送完了": 'sipped'}, {selected: @order.status} ) %>
+           <%= f.submit '更新',class: "btn btn-success w-120px mt-2"%>
+         <%end%>
+      </td>
+      </tr>
+    </tbody>
+  </table>
+  <table class="table">
+    <thead>
+      <tr>
+      <th>商品名</th>
+      <th>単価（税込）</th>
+      <th>数量</th>
+      <th>小計</th>
+      <th>制作ステータス</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @sum = 0 %>
+      <% @order_details.each do |order_detail| %>
+        <tr>
+          <td><%= order_detail.item.name %></td>
+          <td><%= (order_detail.purchase_price*1.1).floor %></td>
+          <td><%= order_detail. amount%></td>
+          <td><%= (order_detail.purchase_price*1.1).floor*order_detail.amount %></td>
+           <% @sum += (order_detail.purchase_price*1.1).floor*order_detail.amount %>
+          <td>
+            <%= form_with model: order_detail,url: admin_status_update_order_path(order_detail), local: true do |f| %>
+           <%= f.select :production_status, options_for_select( {"着手不可": 'impossible', "制作待ち": 'wait_product', "制作中": 'in_product',"制作完了": 'producted'}, {selected: order_detail.production_status} ) %>
+           <%= f.submit '更新',class: "btn btn-success w-120px mt-2"%>
+           <%end%>
+          </td>
+        </tr>
+      <% end%>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <td>商品合計</td>
+        <td><%= @sum %>円</td>
+      </tr>
+      <tr>
+        <td>送料</td>
+        <td>800円</td>
+      </tr>
+      <tr>
+        <td>請求金額合計</td>
+        <td><%= @sum + 800%>円</td>
+      </tr>
+    </tbody>
+  </table>

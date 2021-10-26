@@ -1,0 +1,36 @@
+   <%= render 'layouts/hedadmin' %>
+  <div class="item_show">
+   <h2>商品詳細</h2>
+   <div class="item_image ">
+    <%=attachment_image_tag @item, :item_image, :fill, 300, 300, fallback: "no_image.jpg"  %>
+   </div>
+   <div class="item">
+    <table>
+     <tbody>
+      <tr>
+       <td>商品名</td><td><%= @item.name %></td>
+      </tr>
+      <tr>
+       <td>商品説明</td><td><%= @item.introduction %></td>
+      </tr>
+      <tr>
+       <td>ジャンル</td><td><%= @item.genre.name %></td>
+      </tr>
+      <tr>
+       <td>税込価格</br>(税抜価格)</td><td><%= @item.price*1.1 %>(<%= @item.price %>)</td>
+      </tr>
+      <tr>
+       <td>販売ステータス</td>
+       <td>
+        <% if @item.sale_status == true %>
+        <p class="status_true">販売中</p>
+        <%else%>
+        <p class="status_false">販売停止中</p>
+        <%end%>
+       </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  </div>
+  </div>
